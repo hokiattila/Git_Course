@@ -92,3 +92,4 @@ Megadhatunk benne specifikus fájlt -> MyFile.ext
 egész kiterjesztést				   -> *.ext
 mappát							   -> my-folder/
 UNIX filepath! Windows alatt is!
+
