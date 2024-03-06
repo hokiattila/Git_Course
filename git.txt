@@ -1,0 +1,94 @@
+# Git terminológia
+1. Working directory -> A projekt mappája, ahol a projekt minden erőforrása megtalálható (Nem biztos, hogy a git az összesről tud/követi)
+2. Staging area -> Köztes terület, ahol a git által követett erőforrások változásai rögzítve vannak, de azok még nincsenek véglegesítve (commit-olva)
+3. Repository -> a working directoryban található .git rejtett mappa ahol az összes commit és változás számon van tartva
+4. Branch -> commiteket tartalmazó tároló, melyeket időrendben tart számon (az alapértelmezett branch a master lokálisan viszont main githubon - nemrégi változtatás)
+5. Remote -> távoli git fájlszerver, ahova a lokális repository-t feltöltjük (push-oljuk)
+
+# Alap (lokális) git configurálás
+git config --global user.name "<username>" 	-> Név megadása
+git config --global user.email "<email>"	 	-> Email megadása
+
+# Terminál színezés engedélyezése 
+git config --global color.ui true  	-> nem kötelező
+
+# Lokális adatok ellenőrzése
+git config --global --list
+
+# Lokális git repo létrehozása
+git init <mappanév> 	-> a mappanév opcionális, ha nem adjuk meg akkor a jelenlegi mappában hozza létre a repo-t ahonnan a parancsot kiadtuk
+
+# Lokális repo létrehozása előre definiált alapértelmezett branch-el 
+git init -b <alapértelmezett_branch_neve> <projekt_mappa_neve>
+
+# Lokális master branch átnevezése (pl. main-re, hogy githubbal is működjön)
+git branch -m (vagy -M) master main 	-> <mit> <mire> ha nem adjuk meg, hogy mit akkor alapértelmezetten is a master branch-et fogja átnevezni
+
+# Remote repository letöltése (klónozása)
+git clone <link> 	-> HTTPS és SSH protokollal egyaránt
+
+# Working directory és staging area állapotának listázása
+git status
+
+# Fájlok hozzáadása a staging area-hoz (a working directory-ban lévő fájlok közül)
+git add <fájlnév>
+git add . 		-> az összes WD-ban található fájl hozzáadása ami eddig nem volt követve
+				-> ha az előző commit óta nem hoztunk létre újabb fájlokat csak a meglévőlben módosítottunk, akkor nem kötelező használni -> használhatjuk a commit parancsot közvetlenül a -a kapcsolóval -> git commit -am "<commit_üzenet>"
+
+# A staging area-ban várakozó változások (lokális) repository-ba mentése
+git commit -m "<commit_üzenet>"
+
+# Lokális repository remote-ra való feltöltése
+git push origin main 	-> origin a remote repo-t alias main-el pedig azt adjuk meg, hogy melyik branch-be szeretnénk pusholni 
+						-> az első push utasítás után a rendszer megjegyzi a paramétereket és a továbbiakban már egyszerűen a git push parancsal is tudunk dolgozni
+
+# Remote repo összekapcsolása a lokálissal
+git remote add origin <link>	-> az origin az alias amire később hivatkozhatunk
+								-> HTTPS és SSH esetén és egyaránt
+
+# Az alapértelmezett branch globális átnevezése (lokális repon)
+git config --global init.defaultBranch main
+
+# Lokális repo frissítás remote repo alapján
+git pull (origin) (main)	-> lsd. git push 
+
+# Track-elt elemek listázása
+git ls-files 
+
+# Fájl eltávolítása a staging area-ból (miután véletlenül git add-al már hozzáadtuk) [UNSTAGING]
+git reset HEAD <fájlnév>
+
+# Utolsó commit utáni (fájltartalom) változások eldobása
+git checkout -- <fájlnév>
+
+# Fájl átnevezése (lsd. bash)
+git mv <mit> <mire>
+
+# Ha oprendszer szinten nevezzük át azt a git 2 operációnak látja, ilyenkor a -A kapcsolóval érdemes add-olni (rekurzív hozzáadás)
+git add -A 
+
+# Fájl áthelyezés (lsd. bash) 
+git mv <mit> <hova>
+
+# Fájl törlése (lsd. bash) - ha track-elve van 
+git rm <fájlnév>
+
+# Git naplózás listázása [git help log]
+git log (--all) (--graph) (--decorate) (--oneline)
+git log ae6f872...761b444d		-> range listázása
+git log --since="3 days ago"	-> dátum alapú keresés
+git log -- <fájlnév>			-> fájlra szűrés
+
+# Commit info listázása
+git show <commit_id>
+
+# Alias létrehozása
+git config --global alias.hist "log --all --graph --decorate --oneline"		-> hist alias regisztrálása, értéknél a git kulcsszót nem szabad kitenni
+~/.gitconfig fájlban tárolódik 
+
+# Fájlok ignorálása
+.gitignore fájlt kell létrehoznunk a project mappában
+Megadhatunk benne specifikus fájlt -> MyFile.ext
+egész kiterjesztést				   -> *.ext
+mappát							   -> my-folder/
+UNIX filepath! Windows alatt is!
