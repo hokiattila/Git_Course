@@ -89,7 +89,82 @@ git config --global alias.hist "log --all --graph --decorate --oneline"		-> hist
 # Fájlok ignorálása
 .gitignore fájlt kell létrehoznunk a project mappában
 Megadhatunk benne specifikus fájlt -> MyFile.ext
-egész kiterjesztést				   -> *.ext
-mappát							   -> my-folder/
+egész kiterjesztést		   -> *.ext
+mappát				   -> my-folder/
 UNIX filepath! Windows alatt is!
+
+# Working directory és Staging are összehasonlítása
+git diff
+
+# Változások megjelenítése grafikus git kliensen (ha telepítettünk)
+git diff tool
+
+# Working directory és az utolsó commit összehasonlítása (a jelenlegi branch-en)
+git diff HEAD
+
+# Staging Area és a Repository (lokális) összehasonlítása
+git diff --staged HEAD 
+git difftool --staged HEAD
+
+# Összehasonlítás 1 fájlra szűkítése
+git diff -- <fájlnév>
+git difftool -- <fájlnév>
+
+# Commit-ok összehasonlítása
+git diff <commit_id> <commit_id> (vagy HEAD)
+git diff HEAD HEAD^	-> az utolsó és utolsó előtti commit-ot hasonlítja össze 
+
+# Lokális és remote repo összehasonlítása (main branch)
+git diff main origin/main
+git difftool main origin/main
+
+# Lokális branch-ek listázása
+git branch
+
+# Branch-ek összehasonlítása
+git diff <branch-1> <branch-2>
+
+# Branch-ek listázása (lokál és remote branch-ek)
+git branch -a
+
+# Új branch létrehozása
+git branch <branch_neve>
+
+# Branch váltása 
+git checkout <branch_amire_váltunk>
+
+# Branch átnevezése
+git branch -m <mit> <mire>
+
+# Branch törlése
+git branch -d <mit>
+
+# Branch létrehozása és váltás egy paranccsal
+git checkout -b <új_branch_neve>
+
+# Branch-ek merge-elése
+git merge <melyik_branchet_akarom_beolvasztani_abba_amelyikbe_jelenleg_vagyok>
+
+# Fast-forward merge tiltása
+git merge <melyik_branchet_akarom_beolvasztani_abba_amelyikbe_jelenleg_vagyok> --no-ff
+
+# Automatikus merge (main branch-en vannak köztes commit-ok az elágazás után)
+git merge <melyik_branchet_akarom_beolvasztani_abba_amelyikbe_jelenleg_vagyok> -m "<commit_szöveg"
+
+# Merge konfliktusok (kézzel és tool-lal is megoldható)
+git mergetool		-> megadjuk soronként melyik a valid aztán merge a megszokott módon
+			-> .orig fájl backup amit git automatikusan generál a merge konfliktus alapján
+
+# Rebase - feltöltjük a forrás branch elágazás után commit-jeit a a branchünk-be (frissítjük a branch-ünk alapját)
+git rebase main (a rebase alapját adó branch-be be kell lépnünk)
+
+# Rebase visszavonása
+git rebase --abort
+
+# Rebase remote repo alapján
+git fetch origin main
+
+# Rebase remote repo alapján lokális prio-val
+git pull --rebase origin main
+
 
