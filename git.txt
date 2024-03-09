@@ -38,6 +38,9 @@ git add . 		-> az összes WD-ban található fájl hozzáadása ami eddig nem vo
 # A staging area-ban várakozó változások (lokális) repository-ba mentése
 git commit -m "<commit_üzenet>"
 
+# Commit üzenet utólagos javítása
+git commit --amend
+
 # Lokális repository remote-ra való feltöltése
 git push origin main 	-> origin a remote repo-t alias main-el pedig azt adjuk meg, hogy melyik branch-be szeretnénk pusholni 
 						-> az első push utasítás után a rendszer megjegyzi a paramétereket és a továbbiakban már egyszerűen a git push parancsal is tudunk dolgozni
@@ -167,4 +170,76 @@ git fetch origin main
 # Rebase remote repo alapján lokális prio-val
 git pull --rebase origin main
 
+# Stash-elés
+git stash (save)
+
+# Stash feloldása
+git stash apply
+
+# Az előző 2 összevonva (apply és az utolsó stash törlése)
+git stash pop 
+
+# Stash listázása
+git stash list 
+
+# Stash ürítése
+git stash drop
+
+# Nem track-elt fájlok stash-elése
+git stash -u 
+
+# Több stash menedzselése
+git stash save "<stash_üzenet>"
+git stash show stash@{index}
+git stash apply stash@{index}
+
+# Összes stash eldobása
+git stash clear
+
+# Stash áthelyezése új branch-re 
+git stash -u 
+git stash branch <uj_branch_neve>
+
+# Lightweight Tage-elés
+git tag <tag_neve>
+
+# Tag-ek listázása
+git tag --list
+
+# Tag-ekre ezután hivatkozhatunk 
+git show <tag_név>
+
+# Tag törlése 
+git tag --delete <tag_név>
+
+# Annotált tag-elés
+git tag -a <tag_név>
+git tag <tag_név> -m "<tag_szöveg>"
+
+# Tag-ek összehasonlítása
+git diff <egyik_tag> <masik_tag>
+
+# Visszamenőleges tag-elés
+git tag -a <tag_név> <commit_hash>
+
+# Tag-ek frissítése
+git tag -a <tag_név> -f <korrekt_commit_id>
+
+# Tag-ek használata githubbal
+git push origin <tag_neve>	-> nem csak a tag-eket pusholjuk, hanem a hozzá tartozó commitokat is 
+git push origin master --tags
+
+# Tag törlése githubról
+git push origin :<tag_név>	-> ne pusholj SEMMIT ehhez a tag-névhez
+
+# Előző commit-ra visszaállás
+git reset HEAD^1 VAGY
+git reset HEAD@{2} VAGY
+git reset <commit_hash>
+
+# Parancsok logolása
+git reflog
+
+# Mixed reset, Hard reset, Soft reset
+git reset HEAD	-> Mixed
 
